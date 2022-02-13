@@ -16,8 +16,7 @@ public class PlayerImpl implements Player {
 
     @Override
     public TablePoint hit() {
-        //TODO напиши здесь реализацию удара ракеткой,
-        // возвращающего рандомную точку из pointsForShouting
-        return null;
+        int randomTablePoint = (int) (Math.random() * pointsForShouting.size());
+        return pointsForShouting.stream().toList().get(randomTablePoint);
     }
 }
