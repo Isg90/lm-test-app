@@ -15,9 +15,31 @@ public class PlayerImpl implements Player {
     }
 
     @Override
+    public Set<TablePoint> getPlayerTablePoints() {
+        return playerTablePoints;
+    }
+
+    public Set<TablePoint> getPointsForShouting() {
+        return pointsForShouting;
+    }
+
+    @Override
     public TablePoint hit() {
-        //TODO напиши здесь реализацию удара ракеткой,
-        // возвращающего рандомную точку из pointsForShouting
-        return null;
+
+        TablePoint hitPoint = null;
+        int sizeSet = getPointsForShouting().size();
+        int random = (int) (Math.random() * sizeSet);
+        int i = 0;
+        for (TablePoint point : getPointsForShouting()) {
+            if (i == random) {
+                hitPoint = point;
+                break;
+            }
+            i++;
+        }
+        return hitPoint;
     }
 }
+        //TODO напиши здесь реализацию удара ракеткой,
+        // возвращающего рандомную точку из pointsForShouting
+
