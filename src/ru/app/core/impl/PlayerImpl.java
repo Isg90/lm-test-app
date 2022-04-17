@@ -2,6 +2,7 @@ package ru.app.core.impl;
 
 import ru.app.core.Player;
 
+import java.util.Random;
 import java.util.Set;
 
 public class PlayerImpl implements Player {
@@ -18,6 +19,10 @@ public class PlayerImpl implements Player {
     public TablePoint hit() {
         //TODO напиши здесь реализацию удара ракеткой,
         // возвращающего рандомную точку из pointsForShouting
-        return null;
+        Random random = new Random();
+        TablePoint[] tablePoints =  pointsForShouting.toArray(new TablePoint[pointsForShouting.size()]);
+        TablePoint tablePoint = tablePoints[random.nextInt(tablePoints.length)];
+        System.out.println("Удар по точке " + tablePoint);
+        return tablePoint;
     }
 }
