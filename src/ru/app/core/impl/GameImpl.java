@@ -4,16 +4,44 @@ import ru.app.core.Game;
 import ru.app.core.Player;
 
 public class GameImpl implements Game {
-    private static int MAXIMUM_GAME_POINT = 11;
+    private static final int MAXIMUM_GAME_POINT = 11;
+    private boolean shift = true;
+    private int gamePointFirstPlayer = 0;
+    private int gamePointSecondPlayer = 0;
+    private Player playerOne;
+    private Player playerTwo;
 
     @Override
     public void run(PingPongTableImpl pingPongTable, Player playerOne, Player playerTwo) {
-        //TODO напиши здесь реализацию игры в пинг-понг двух игроков, используя их имплементации
-        // алгоритм реализации:
-        // При каждом ударе игрока производится проверка, попал ли игрок по столу соперника или нет.
-        // Факт удара фиксируется в console (попал или не попал и по какой точке был совершен удар).
-        // В случае, если игрок не попадает по столу соперника, очко присуждается его оппонента (общий счет выводится в консоль).
-        // Очко разыгрывается до тех пор, пока один из игроков не промахнется по столу соперника.
-        // Очки суммируются и тот, кто наберет первым 11 очков, будет победителем.
+        this.playerOne=playerOne;
+        this.playerTwo = playerTwo;
+        while (gamePointFirstPlayer < MAXIMUM_GAME_POINT && gamePointSecondPlayer < MAXIMUM_GAME_POINT) {
+            if (shift) {
+                gamePointSecondPlayer = hitPlayer(playerOne, playerTwo, gamePointSecondPlayer);
+            } else {
+                gamePointFirstPlayer = hitPlayer(playerTwo, playerOne, gamePointFirstPlayer);
+            }
+        }
+        Player winePlayer = gamePointFirstPlayer == MAXIMUM_GAME_POINT ? playerOne : playerTwo;
+
+        System.out.println("Поздравляем," + winePlayer + " выиграл в турнире среди космонавтов.Общий счет игры: "
+                + gamePointFirstPlayer + "-" + gamePointSecondPlayer);
+    }
+
+    private int hitPlayer(Player hitter, Player survivor, int gamePointPlayer) {
+        TablePoint hitFirst = hitter.hit();
+        if (survivor.getPlayerTablePoints().contains(hitFirst)) {
+            System.out.println(hitter + " попал.Удар зафиксирован в точке " + hitFirst);
+        } else {
+            System.out.println(hitter + " промахнулся.Удар зафиксирован в точке " + hitFirst);
+            gamePointPlayer++;
+            if (hitter.equals(playerTwo)) {
+                System.out.println("Cчет игры:" + gamePointPlayer + "-" + gamePointSecondPlayer);
+            } else {
+                System.out.println("Cчет игры:" + gamePointFirstPlayer + "-" + gamePointPlayer);
+            }
+        }
+        shift = !shift;
+        return gamePointPlayer;
     }
 }
