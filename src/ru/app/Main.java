@@ -10,11 +10,12 @@ public class Main {
         var pingPongTable = new PingPongTableImpl();
         var game = new GameImpl();
 
-        var playerOne = new PlayerImpl(
+        var playerOne = new PlayerImpl("Гагарин",
                 pingPongTable.getPlayerOneTablePoints(),
                 pingPongTable.getPlayerOneTablePointsForShouting()
         );
-        var playerTwo = new PlayerImpl(
+
+        var playerTwo = new PlayerImpl("Титов",
                 pingPongTable.getPlayerTwoTablePoints(),
                 pingPongTable.getPlayerTwoTablePointsForShouting()
         );

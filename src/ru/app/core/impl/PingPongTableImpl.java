@@ -27,11 +27,6 @@ public class PingPongTableImpl implements PingPongTable {
     }
 
     @Override
-    public Set<TablePoint> getAllTablePoints() {
-        return tablePoints;
-    }
-
-    @Override
     public Set<TablePoint> getPlayerOneTablePoints() {
         return playerOneTablePoints;
     }
